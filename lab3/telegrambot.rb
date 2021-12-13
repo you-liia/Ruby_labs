@@ -23,38 +23,38 @@ Telegram::Bot::Client.run(token) do |bot|
 
 
   	case message
-		when Telegram::Bot::Types::CallbackQuery
-		case message.data
+	when Telegram::Bot::Types::CallbackQuery
+	case message.data
 
-			# Here you can handle your callbacks from inline buttons
-			when 'address'
-				bot.api.send_location(chat_id: message.from.id, latitude: 48.28741845756063, longitude: 25.93809926949383)
-				bot.api.send_message(chat_id: message.from.id, text: "Заходьте до нас за адресою:\n➡️ вул. О.Кобилянської, 30, Чернівці, Україна")
+		  # Here you can handle your callbacks from inline buttons
+		  when 'address'
+			bot.api.send_location(chat_id: message.from.id, latitude: 48.28741845756063, longitude: 25.93809926949383)
+			bot.api.send_message(chat_id: message.from.id, text: "Заходьте до нас за адресою:\n➡️ вул. О.Кобилянської, 30, Чернівці, Україна")
 		  when 'contacts'
 		  	bot.api.send_message(chat_id: message.from.id, text: "☎️ +38 (066) 378 13 16\nЧекаємо на Ваш дзвінок!")
 		  when 'quotes'
 		  	bot.api.send_message(chat_id: message.from.id, text: QUOTES.sample)
 		  when 'words'		  		
-				bot.api.send_message(chat_id: message.from.id, text: "Оберіть, будь ласка, тему:\n/family\n/animals\n/food")
-			when 'schedule'
-		  		kb2 = [
-					Telegram::Bot::Types::KeyboardButton.new(text: 'ПН'),
-					Telegram::Bot::Types::KeyboardButton.new(text: 'ВТ'),
-					Telegram::Bot::Types::KeyboardButton.new(text: 'СР'),
-					Telegram::Bot::Types::KeyboardButton.new(text: 'ЧТ'),
-					Telegram::Bot::Types::KeyboardButton.new(text: 'ПТ')
-		  		],
-		  		[
-		  			Telegram::Bot::Types::KeyboardButton.new(text: 'Субота'),
-		  			Telegram::Bot::Types::KeyboardButton.new(text: 'НЕДІЛЯ')
-		  		],
-		  		[
-		  			Telegram::Bot::Types::KeyboardButton.new(text: '/menu')
-		  		]
-				markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb2)
-				bot.api.send_message(chat_id: message.from.id, text: "Оберіть, будь ласка, день:", reply_markup: markup)
-				Telegram::Bot::Types::KeyboardButton.new(remove_keyboard: true)
-			end
+			bot.api.send_message(chat_id: message.from.id, text: "Оберіть, будь ласка, тему:\n/family\n/animals\n/food")
+		  when 'schedule'
+		  	kb2 = [
+				Telegram::Bot::Types::KeyboardButton.new(text: 'ПН'),
+				Telegram::Bot::Types::KeyboardButton.new(text: 'ВТ'),
+				Telegram::Bot::Types::KeyboardButton.new(text: 'СР'),
+				Telegram::Bot::Types::KeyboardButton.new(text: 'ЧТ'),
+				Telegram::Bot::Types::KeyboardButton.new(text: 'ПТ')
+		  	],
+		  	[
+		  		Telegram::Bot::Types::KeyboardButton.new(text: 'Субота'),
+		  		Telegram::Bot::Types::KeyboardButton.new(text: 'НЕДІЛЯ')
+		  	],
+		  	[
+		  		Telegram::Bot::Types::KeyboardButton.new(text: '/menu')
+		  	]
+			markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: kb2)
+			bot.api.send_message(chat_id: message.from.id, text: "Оберіть, будь ласка, день:", reply_markup: markup)
+			Telegram::Bot::Types::KeyboardButton.new(remove_keyboard: true)
+		   end
 
 
 		when Telegram::Bot::Types::Message
